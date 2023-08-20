@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex-wrap flex px-8">
+        {% block filter_column %}{% endblock %}
+        <div class="{% block object_list_col_styles %}p-6 bg-white rounded-lg shadow w-full{% endblock %}">
+
+            <div id="object-list">
+
+                {% block object_list %}{% endblock %}
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+<section>
+    <h2 class="font-montserrat my-10 text-4xl px-8 font-black">{{ title }}</h2>
+    <div class="bg-white rounded-xl shadow px-8 py-10">
+        <table class="table-auto">
+            {% for object in objects %}
+                <tr>
+                    {% for k,v in object.items() %}
+                        <td>{{ v }}</td>{% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</section>
