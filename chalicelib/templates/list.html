@@ -5,7 +5,7 @@
         {% block filter_column %}{% endblock %}
         <div class="{% block object_list_col_styles %}p-6 bg-white rounded-lg shadow w-full{% endblock %}">
 
-            <div id="object-list">
+            <div id="object-list" hx-boost="true" hx-indicator="#bars" hx-target="#main" hx-push-url="true" hx-headers='{"Use-Partials":"true"}'>
 
                 {% block object_list %}{% endblock %}
 

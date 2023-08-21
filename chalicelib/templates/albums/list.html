@@ -1,5 +1,5 @@
 {% extends 'list.html' %}
-{% block title %}Posts - {{page_obj}}{% endblock %}
+{% block title %}Albums - {{page_obj}}{% endblock %}
 {% block filter_column %}
     <div class="md:w-3/12 mt-6 pr-6" hx-get="{{ base_path }}/users/dropdown" hx-target="#userId" hx-trigger="load">
 
@@ -7,9 +7,11 @@
               hx-boost="true"
               hx-target="#object-list"
               hx-push-url="true"
+              hx-indicator="#bars"
               hx-headers='{"Use-Partials": "true"}'>
 
             <div class="mb-4">
+                <label for="q" class="block text-sm font-medium text-neutral-700">Search</label>
                 <input type="text" name="q" id="search"
                        hx-get="1"
                        hx-target="#object-list"
@@ -48,7 +50,7 @@
 
 {% block object_list %}
 
-    {% include 'posts/partials/list.html' %}
+    {% include 'albums/partials/list.html' %}
 
 {% endblock %}
 

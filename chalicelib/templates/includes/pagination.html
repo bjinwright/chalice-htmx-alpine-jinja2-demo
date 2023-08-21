@@ -1,53 +1,50 @@
-    <div class="flex flex-wrap items-center justify-between -m-2">
+<div class="flex flex-wrap items-center justify-between mb-6" hx-boost="true" hx-indicator="#bars" hx-target="#object-list" hx-push-url="true" hx-headers='{"Use-Partials": "true"}'>
 
-        <div class="w-auto p-2">
-            <div class="flex flex-wrap -m-0.5">
-                <div class="w-auto p-2">
-                    <p class="text-black">
-                        Showing Page {{ page_obj.current_page }} of {{ page_obj.total_pages }}
-                    </p>
-                </div>
-                {% if page_obj.has_previous %}
-                    <div class="w-auto p-0.5"><a
-                            class="flex items-center justify-center w-9 h-9 rounded-lg bg-white text-black hover:bg-gray-200"
-                            hx-boost="true"
-                            href="{{ page_obj.previous_page_number }}{{ filters }}"
-                            hx-target="#object-list" hx-push-url="true" hx-headers='{"Use-Partials": "true"}'>
-                        <svg width="7" height="12" viewBox="0 0 7 12" fill="none" class="stroke-black"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6 10.6666L1.33333 5.99998L6 1.33331"
-                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg>
-                    </a></div>
-                {% endif %}
-
-                {% for page in page_obj.page_range %}
-
-                    <div class="w-auto p-0.5">
-                        {% if page_obj.current_page != page %}
-                            <a class="flex items-center justify-center w-9 h-9 rounded-lg bg-white text-black hover:bg-gray-200 hover:text-gray-700"
-                               hx-boost="true" href="{{ page }}{{ filters }}" hx-target="#object-list" hx-push-url="true" hx-headers='{"Use-Partials": "true"}'>
-                                <span class="font-semibold">{{ page }}</span>
-                            </a>
-                        {% else %}
-                            <span class="font-semibold bg-gray-200 text-gray-700 w-9 h-9 rounded-lg flex items-center justify-center">{{ page }}</span>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-                {% if page_obj.has_next %}
-                    <div class="w-auto p-0.5"><a
-                            class="flex items-center justify-center w-9 h-9 rounded-lg bg-white text-black hover:bg-gray-200"
-                            href="{{ page_obj.next_page_number }}{{ filters }}" hx-boost="true" hx-target="#object-list" hx-push-url="true" hx-headers='{"Use-Partials": "true"}'>
-                        <svg width="7" height="12" viewBox="0 0 7 12" fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 1.33335L5.66667 6.00002L1 10.6667" class="stroke-black"
-                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg>
-                    </a></div>
-                {% endif %}
-
-
+    <div class="w-auto p-2">
+        <div class="flex flex-wrap -m-0.5">
+            <div class="w-auto p-2">
+                <p class="text-black">
+                    Showing Page {{ page_obj.current_page }} of {{ page_obj.total_pages }}
+                </p>
             </div>
-        </div>
+            {% if page_obj.has_previous %}
+                <div class="w-auto p-0.5"><a
+                        class="flex items-center justify-center w-9 h-9 rounded-lg bg-white text-black hover:bg-gray-200"
+                        href="{{ base_path }}{{ url_prefix }}{{ page_obj.previous_page_number }}{{ filters }}"
+                        >
+                    <svg width="7" height="12" viewBox="0 0 7 12" fill="none" class="stroke-black"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 10.6666L1.33333 5.99998L6 1.33331"
+                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </a></div>
+            {% endif %}
 
+            {% for page in page_obj.page_range %}
+
+                <div class="w-auto p-0.5">
+                    {% if page_obj.current_page != page %}
+                        <a class="flex items-center justify-center w-9 h-9 rounded-lg bg-white text-black hover:bg-gray-200 hover:text-gray-700"
+                           href="{{ base_path }}{{ url_prefix }}{{ page }}{{ filters }}">
+                            <span class="font-semibold">{{ page }}</span>
+                        </a>
+                    {% else %}
+                        <span class="font-semibold bg-gray-200 text-gray-700 w-9 h-9 rounded-lg flex items-center justify-center">{{ page }}</span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <div class="w-auto p-0.5"><a
+                        class="flex items-center justify-center w-9 h-9 rounded-lg bg-white text-black hover:bg-gray-200"
+                        href="{{ base_path }}{{ url_prefix }}{{ page_obj.next_page_number }}{{ filters }}">
+                    <svg width="7" height="12" viewBox="0 0 7 12" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1.33335L5.66667 6.00002L1 10.6667" class="stroke-black"
+                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </a></div>
+            {% endif %}
+        </div>
     </div>
+
+</div>

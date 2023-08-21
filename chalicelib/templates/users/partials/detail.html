@@ -1,0 +1,45 @@
+<div class="flex-wrap flex mb-8 bg-white p-10 rounded-lg" hx-boost="true">
+
+    <div class="w-full md:w-9/12">
+        <!-- I am using a random image for the user profile picture because the API does not provide one -->
+        <img class="rounded-full w-32 h-32 mb-6" src="https://picsum.photos/200?username={{ object.username }}"
+             alt="{{ object.username }}'s Profile picture">
+        <h1 class="text-5xl mb-6 font-black font-montserrat">{{ object.name }}</h1>
+        <p class="text-gray-500 text-3xl">{{ object.username|lower }}</p>
+
+        <div class="flex flex-wrap mb-6">
+            <div class="w-full md:w-6/12 text-xl">
+                 <h2 class="text-3xl font-montserrat font-black mt-10 mb-6">Address</h2>
+                <p class="">{{ object.address.street }}</p>
+            <p class="">{{ object.address.suite }}</p>
+            <p class="">{{ object.address.city }}</p>
+            <p class="">{{ object.address.zipcode }}</p>
+            </div>
+            <div class="w-full md:w-6/12 text-xl">
+             <h2 class="text-3xl font-montserrat font-black mt-10 mb-6">Company</h2>
+
+                <h3 class="text-2xl font-bold mb-2">{{ object.company.name }}</h3>
+                <p class="">{{ object.company.catchPhrase }}</p>
+                <p class="">{{ object.company.bs }}</p>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="w-full md:w-3/12">
+        <div class="flex flex-col text-xl">
+            <div class="flex flex-col mb-6">
+                <p class="">{{ object.email }}</p>
+                <p class="font-bold">Email</p>
+            </div>
+            <div class="flex flex-col mb-6">
+                <p class="">{{ object.website }}</p>
+                <p class="font-bold">Website</p>
+            </div>
+            <div class="flex flex-col mb-6">
+                <p class="">{{ object.phone }}</p>
+                <p class="font-bold">Phone</p>
+            </div>
+        </div>
+    </div>
+</div>

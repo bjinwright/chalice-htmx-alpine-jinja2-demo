@@ -1,7 +1,9 @@
 {% extends 'list.html' %}
-{% block title %}Posts - {{page_obj}}{% endblock %}
+
+{% block title %}Users = {{ page_obj }}{% endblock %}
+
 {% block filter_column %}
-    <div class="md:w-3/12 mt-6 pr-6" hx-get="{{ base_path }}/users/dropdown" hx-target="#userId" hx-trigger="load">
+<div class="md:w-3/12 mt-6 pr-6" hx-get="{{ base_path }}/users/dropdown" hx-target="#userId" hx-trigger="load">
 
         <form method="get" action="1"
               hx-boost="true"
@@ -15,25 +17,12 @@
                        hx-target="#object-list"
                        hx-trigger="keyup changed delay:500ms"
                        hx-push-url="true"
-                       hx-include="[name='userId']"
                        hx-headers='{"Use-Partials": "true"}'
                        placeholder="Search"
                        class="p-4 text-lg bg-neutral-50 border border-neutral-200 rounded-lg w-full"
                 />
             </div>
 
-            <div class="mb-4">
-                <label for="userId" class="block text-sm font-medium text-neutral-700">Author</label>
-                <select id="userId" name="userId"
-                        hx-get="1"
-                        hx-target="#object-list"
-                        hx-push-url="true"
-                        hx-headers='{"Use-Partials": "true"}'
-                        hx-include="[name='q']"
-                        class="p-4 text-lg bg-neutral-50 border border-neutral-200 rounded-lg w-full">
-
-                </select>
-            </div>
 
 
             <button type="submit"
@@ -47,10 +36,6 @@
 {% block object_list_col_styles %}mt-6 w-full md:w-9/12{% endblock %}
 
 {% block object_list %}
-
-    {% include 'posts/partials/list.html' %}
-
+{% include 'users/partials/list.html' %}
 {% endblock %}
-
-
 

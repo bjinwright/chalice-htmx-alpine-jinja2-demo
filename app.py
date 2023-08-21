@@ -8,7 +8,12 @@ app = Chalice(app_name='nuclei')
 
 @app.route('/')
 def index():
-    return render_template(app.current_request, 'index.html', {'name': 'james'})
+    return render_template(
+        app.current_request,
+        'index.html',
+        {'name': 'james'},
+        title_template='Chalice + HTMX + Alpine + Jinja2 Demo'
+    )
 
 
 # Posts
@@ -34,10 +39,12 @@ def get_post(post_id):
         f'https://jsonplaceholder.typicode.com/posts/{post_id}',
         'posts/detail.html',
         extra_context={'title': 'Post'},
-        partial_template='posts/partials/detail.html')
+        partial_template='posts/partials/detail.html',
+        title_template='{object[title]}'
+    )
 
 
-@app.route('/posts/{post_id}/comments', methods=['GET'])
+@app.route('/posts/detail/{post_id}/comments', methods=['GET'])
 def get_post_comments(post_id):
     return generic_list_view(
         app.current_request,
@@ -48,13 +55,6 @@ def get_post_comments(post_id):
     )
 
 
-@app.route('/posts/{post_id}/comments/{comment_id}', methods=['GET'])
-def get_post_comment(post_id, comment_id):
-    return generic_detail_view(
-        f'https://jsonplaceholder.typicode.com/posts/{post_id}/comments/{comment_id}',
-        'detail.html')
-
-
 # Albums
 @app.route('/albums/{page}', methods=['GET'])
 def get_albums(page):
@@ -62,50 +62,60 @@ def get_albums(page):
     return generic_list_view(
         app.current_request,
         'https://jsonplaceholder.typicode.com/albums',
-        'list.html',
+        'albums/list.html',
         current_page=page,
-        partial_template='includes/list.includes.html',
-        extra_context={'title': 'Albums'}
+        partial_template='albums/partials/list.html',
+        extra_context={'title': 'Albums'},
+        title_template='Albums - {page_obj}'
     )
 
 
-@app.route('/albums/{album_id}', methods=['GET'])
+@app.route('/albums/detail/{album_id}', methods=['GET'])
 def get_album(album_id):
-    album = requests.get(
-        f'https://jsonplaceholder.typicode.com/albums/{album_id}').json()
-    return generic_list_view(
+    return generic_detail_view(
         app.current_request,
-        f'https://jsonplaceholder.typicode.com/albums/{album_id}/photos',
-        'list.html',
-        extra_context={'album': album})
-
-
-# Todos
-@app.route('/todos', methods=['GET'])
-def get_todos():
-    return generic_list_view(
-        app.current_request,
-        'https://jsonplaceholder.typicode.com/todos',
-        'list.html',
-        partial_template='includes/list.includes.html',
-        extra_context={'title': 'Todos'}
+        f'https://jsonplaceholder.typicode.com/albums/{album_id}',
+        'albums/detail.html',
+        extra_context={'title': 'Album', 'album_id': album_id},
+        partial_template='albums/partials/detail.html',
+        title_template='{object[title]}'
     )
 
-
-@app.route('/todos/{todo_id}', methods=['GET'])
-def get_todo(todo_id):
-    return generic_detail_view(
-        f'https://jsonplaceholder.typicode.com/todos/{todo_id}',
-        'detail.html')
-
-
+@app.route('/albums/detail/{album_id}/photos', methods=['GET'])
+def get_album_photos(album_id):
+    return generic_list_view(
+        app.current_request,
+        f'https://jsonplaceholder.typicode.com/photos/?albumId={album_id}',
+        'albums/partials/photos/list.html',
+        current_page=1,
+        partial_template='albums/partials/photos/list.html',
+        extra_context={'title': 'Photos'}
+    )
 # Users
-@app.route('/users', methods=['GET'])
-def get_users():
+@app.route('/users/{page}', methods=['GET'])
+def get_users(page):
+    page = int(page)
     return generic_list_view(
         app.current_request,
         'https://jsonplaceholder.typicode.com/users',
-        'list.html')
+        'users/list.html',
+        current_page=page,
+        partial_template='users/partials/list.html',
+        extra_context={'title': 'Users'},
+        title_template='Users - {page_obj}'
+    )
+
+
+@app.route('/users/detail/{user_id}', methods=['GET'])
+def get_user(user_id):
+    return generic_detail_view(
+        app.current_request,
+        f'https://jsonplaceholder.typicode.com/users/{user_id}',
+        'users/detail.html',
+        extra_context={'title': 'User'},
+        partial_template='users/partials/detail.html',
+        title_template='{object[name]}'
+    )
 
 
 @app.route('/users/dropdown', methods=['GET'])
@@ -113,4 +123,4 @@ def get_users_dropdown():
     return generic_list_view(
         app.current_request,
         'https://jsonplaceholder.typicode.com/users',
-        'users/dropdown.html',1, per_page=100)
+        'users/dropdown.html', 1, per_page=100)

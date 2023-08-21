@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 
+{% block title %}Chalice + HTMX + Alpine + Jinja2 Demo{% endblock %}
+
 {% block content %}
-    <h1>Chalice Demo</h1>
-    <p>Chalice is a microframework for writing serverless apps in python.</p>
+    <h1 class="font-montserrat font-black text-5xl px-8 mt-4 mb-8">Chalice + HTMX + Alpine + Jinja2 Demo</h1>
+    <div class="bg-white rounded-lg p-10">
+        <p>
+            This is a demo of a simple Chalice app that uses HTMX, Alpine, and Jinja2. It's a simple app that allows you
+            to
+            view the data from the <a href="https://jsonplaceholder.typicode.com/">JSONPlaceholder API</a>. The data is
+            fetched
+            from the API using HTMX and then rendered using Jinja2.
+        </p>
+    </div>
 {% endblock %}

@@ -2,13 +2,14 @@ from pathlib import Path
 
 import requests
 from chalice import Response
+from envs import env
 from jinja2 import Environment, FileSystemLoader
 
 from chalicelib.utilities.paginate import Page
 
 TEMPLATE_DIR = Path(__file__).parent.parent / 'templates'
 JINJA2_ENV = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
-
+BASE_PATH = env('BASE_PATH','')
 
 def first_letters_filter(s):
     words = s.split()
@@ -25,6 +26,7 @@ JINJA2_ENV.filters['first_letters'] = first_letters_filter
 def render_template(
         request, html_template, context,
         partial_template=None, headers=None, title_template=None):
+    context['base_path'] = BASE_PATH
 
     headers = headers or {}
     # If the request is an HX request, the USE-PARTIAL header is set
@@ -32,7 +34,6 @@ def render_template(
     # the partial template instead of the full template.
     if request.headers.get('HX-Request') and \
             request.headers.get('Use-Partials') and partial_template:
-        print("Using partial template")
         template_name = JINJA2_ENV.get_template(partial_template)
     else:
         template_name = JINJA2_ENV.get_template(html_template)
@@ -82,10 +83,14 @@ def generic_list_view(request, url, html_template,
     # NOTE: This is not how I would do pagination in production. Ideally there
     # would be page information in the JSON object received from the API.
     page_obj = Page(current_page, object_list, per_page=per_page)
+    # NOTE: This is a hack to get the url prefix for the pagination links. If this were
+    # a production app I would figure out a way to reverse the url in the template.
+    url_prefix = f"/{request.path.split('/')[1]}/"
     context = {
         'object_list': object_list,
         'page_obj': page_obj,
-        'filters': filters
+        'filters': filters,
+        'url_prefix': url_prefix
     }
     if extra_context:
         context.update(extra_context)
