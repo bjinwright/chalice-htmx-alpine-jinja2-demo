@@ -1,0 +1,15 @@
+<h2 class="my-6 font-montserrat font-black text-3xl">Comments</h2>
+<div class="bg-white p-10 rounded-lg">
+{% for object in object_list %}
+<div class="flex flex-wrap my-6 border-b border-gray-500 border-dotted py-6">
+    <div class="w-full md:w-9/12">
+        <h3 class="font-bold">{{ object.name }}</h3>
+        <p>{{ object.body }}</p>
+    </div>
+    <div class="w-full md:w-2/12">
+        <p>{{ object.email }}</p>
+        <h3 class="font-bold">Email</h3>
+    </div>
+</div>
+{% endfor %}
+</div>

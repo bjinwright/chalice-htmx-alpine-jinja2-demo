@@ -2,3 +2,7 @@
     <h1 class="text-5xl mb-6 font-black font-montserrat">{{ object.title|title }}</h1>
     <p class="text-lg">{{ object.body|capitalize }}</p>
 </div>
+
+<div hx-get="/posts/detail/{{ object.id }}/comments" hx-trigger="load" hx-indicator="#bars">
+
+</div>

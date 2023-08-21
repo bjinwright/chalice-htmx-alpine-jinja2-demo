@@ -49,8 +49,10 @@ def get_post_comments(post_id):
     return generic_list_view(
         app.current_request,
         f'https://jsonplaceholder.typicode.com/posts/{post_id}/comments',
-        'list.html',
-        partial_template='includes/list.includes.html',
+        'posts/partials/comments/list.html',
+        current_page=1,
+        per_page=1000,
+        partial_template='posts/partials/comments/list.html',
         extra_context={'title': 'Comments'}
     )
 
